@@ -1,0 +1,9 @@
+.git
+.github
+.DS_Store
+*.zip
+docs
+monitoring
+k8s
+scripts
+README.md

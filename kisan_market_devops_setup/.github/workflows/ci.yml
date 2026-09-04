@@ -1,0 +1,28 @@
+name: Kisan Market CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate static frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make validation script executable
+        run: chmod +x scripts/validate.sh
+
+      - name: Validate project files
+        run: make validate
+
+      - name: Build Docker image
+        run: docker build -t kisan-market:${{ github.sha }} .
