@@ -1,16 +1,15 @@
+
 #!/usr/bin/env bash
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-FRONTEND="$ROOT/frontend"
 
-echo "Validating Kisan Market static frontend..."
+echo "Validating Kisan Market frontend..."
 
 required_files=(
-  "$FRONTEND/index.html"
-  "$FRONTEND/style.css"
-  "$FRONTEND/front.css"
-  "$FRONTEND/script.js"
+  "$ROOT/index.html"
+  "$ROOT/style.css"
+  "$ROOT/script.js"
 )
 
 for file in "${required_files[@]}"; do
@@ -21,18 +20,18 @@ for file in "${required_files[@]}"; do
   echo "OK: ${file#$ROOT/}"
 done
 
-if ! grep -qi '<!DOCTYPE html>' "$FRONTEND/index.html"; then
-  echo "ERROR: index.html does not contain a DOCTYPE declaration."
+if ! grep -qi '<!DOCTYPE html>' "$ROOT/index.html"; then
+  echo "ERROR: index.html is missing DOCTYPE."
   exit 1
 fi
 
-if ! grep -q 'script.js' "$FRONTEND/index.html"; then
-  echo "ERROR: index.html does not reference script.js."
-  exit 1
-fi
-
-if ! grep -q 'style.css' "$FRONTEND/index.html"; then
+if ! grep -q 'style.css' "$ROOT/index.html"; then
   echo "ERROR: index.html does not reference style.css."
+  exit 1
+fi
+
+if ! grep -q 'script.js' "$ROOT/index.html"; then
+  echo "ERROR: index.html does not reference script.js."
   exit 1
 fi
 
