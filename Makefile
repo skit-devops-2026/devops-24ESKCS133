@@ -1,3 +1,4 @@
+
 APP_NAME ?= kisan-market
 IMAGE ?= kisan-market:local
 PORT ?= 8080
@@ -5,13 +6,13 @@ PORT ?= 8080
 .PHONY: validate test build docker-build docker-run clean
 
 validate:
-	@./scripts/validate.sh
+	@bash ./scripts/validate.sh
 
-test: validate
+test:
+	@bash ./tests/test_frontend.sh
 
 build:
-	@echo "Static application: no compilation step required."
-	@echo "HTML/CSS/JS files are ready to be served by Nginx."
+	@echo "Static application: no compilation required."
 
 docker-build:
 	docker build -t $(IMAGE) .
