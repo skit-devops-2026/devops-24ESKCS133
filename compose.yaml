@@ -1,0 +1,11 @@
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: kisan-market:local
+    container_name: kisan-market-web
+    ports:
+      - "8080:80"
+    restart: unless-stopped
